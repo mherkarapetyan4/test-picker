@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { DateRangePicker } from "react-dates";
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
+import "./App.css";
 
 function App() {
+  const [focusedDate, setFocusedDate] = useState(null);
+  const [dates, setDates] = useState({ startDate: null, endDate: null });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DateRangePicker
+        startDate={dates.startDate}
+        endDate={dates.endDate}
+        startDateId={"start"}
+        endDateId={"end"}
+        onDatesChange={({ startDate, endDate }) => {
+          setDates({ startDate, endDate });
+        }}
+        focusedInput={focusedDate}
+        onFocusChange={setFocusedDate}
+      />
     </div>
   );
 }
